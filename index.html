@@ -27,7 +27,7 @@
         
          <h2>   <b><p ng-model="details">No. of screens connected : {{devicecount}} </p></b></h2>
          <ul>Total Screens :
-             <li>{{list}}</li>
+             <li ng-repeat="x in list">{{x}}</li>
          </ul>
        <hr>
          <button class="btn btn-md btn-outline-dark" ng-value="process string" ng-click="detectMultipleScreens()">Detect Multiple Screens</button>
