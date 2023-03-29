@@ -54,17 +54,17 @@
                            console.log("No. of Devices Connected: " + totalScreens.screens.length);
                            $scope.devicecount = totalScreens.screens.length;
                            for(i in totalScreens.screens){
+                                let count = i;
                                if(totalScreens.screens[i].label){
                                 list.push(totalScreens.screens[i].label);
                                }else{
-                                   list.push('screen ' + i++) ;
+                                   list.push('screen ' + ++count) ;
                                }
                            }
                            $scope.list = list;
                            console.log(list);
                        })
                     }
-     
       });
  
   </script>
