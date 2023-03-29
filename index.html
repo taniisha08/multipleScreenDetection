@@ -16,7 +16,7 @@
        }
 
    </style>
-  <title>Angular JS</title>
+  <title>DETECT</title>
 </head>
 <body>
 <div class="container" ng-app="myApp">
@@ -25,7 +25,7 @@
         <b><h1> {{heading}}</h1></b>
         <hr>
         
-         <h2>   <b><p ng-model="details">No. of screens connected : {{devicecount}}</p></b></h2>
+         <h2>   <b><p ng-model="details">No. of screens connected : {{devicecount}} </p></b></h2>
          <ul>Total Screens :
              <li ng-repeat="screen in list">{{list}}</li>
          </ul>
@@ -53,7 +53,11 @@
                            console.log("No. of Devices Connected: " + totalScreens.screens.length);
                            $scope.devicecount = totalScreens.screens.length;
                            for(i in totalScreens.screens){
-                            list.push(totalScreens.screens[i].label);
+                               if(totalScreens.screens[i].label){
+                                list.push(totalScreens.screens[i].label);
+                               }else{
+                                   list.push('screen' + [i]);
+                               }
                            }
                            $scope.list = list;
                            console.log(list);
