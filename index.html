@@ -1,89 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
-   <style>
-
-       body{
-           font-size: x-large;
-       }
-
-   </style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+  <style>
+    body {
+      font-size: x-large;
+    }
+  </style>
   <title>DETECT SCREENS</title>
 </head>
+
 <body>
-<div class="container" ng-app="myApp">
+  <div class="container" ng-app="myApp">
     <div class="container">
-        <div ng-controller="myCtrl1">
-        <b><h1> {{heading}}</h1></b>
+      <div ng-controller="myCtrl1">
+        <b>
+          <h1> {{heading}}</h1>
+        </b>
         <hr>
-        
-         <h3> <b><p ng-model="details" >Total screens connected : <span style="color: crimson;"> {{devicecount}} </span>  </p></b>
-           <b>operating system:<span style="color: crimson;"> {{os}}</span></b><h3>
-           <hr>
-         <ul>Screen list :
-             <li ng-repeat="x in list" style="color:crimson;">{{x}}</li>
-         </ul>
-       <hr>
-       <button class="btn btn-sm btn-outline-dark"  ng-click="detectMultipleScreens()">Double Click</button> 
-        
-          </div> 
+        <h3> <b>
+            <p ng-model="details">Total screens connected : <span style="color: crimson;"> {{devicecount}} </span> </p>
+          </b>
+          <b>operating system:<span style="color: crimson;"> {{os}}</span></b>
+          <h3>
+            <hr>
+            <ul>Screen list :
+              <li ng-repeat="x in list" style="color:crimson;">{{x}}</li>
+            </ul>
+            <button class="btn btn-sm btn-outline-dark" ng-click="detectMultipleScreens()">Double Click</button>
+            <br><br>
+           <ul style="font-size: large;">
+             <li>screenWidth: <span style="color: crimson;">  {{width}} </span></li>
+             <li>screenHeight: <span style="color: crimson;"> {{height}} </span></li>
+             <li>availableScreen Width: <span style="color: crimson;"> {{availWidth}} </span> </li>
+             <li>availableScreen Height: <span style="color: crimson;"> {{availHeight}} </span></li>
+           </ul> 
+      </div>
     </div>
-  
-</div>
+    
+  </div>
 
+    <script>
 
-  <script>
       var myApp = angular
-      .module('myApp',[])
-      .controller('myCtrl1',function($scope){
-        $scope.heading = 'Detecting multiple Screens in different devices'; 
-        // detecting the operating system
-        var os = "Unknown OS";
-        if (navigator.userAgent.indexOf("Win") != -1) os = 
-          "Windows OS";
-        if (navigator.userAgent.indexOf("Mac") != -1) os = 
-          "Macintosh";
-        if (navigator.userAgent.indexOf("Linux") != -1) os = 
-          "Linux OS";
-        if (navigator.userAgent.indexOf("Android") != -1) os = 
-          "Android OS";
-        if (navigator.userAgent.indexOf("like Mac") != -1) os = 
-          "iOS";
-        if(os == "Unknown OS"){
+        .module('myApp', [])
+        .controller('myCtrl1', function ($scope) {
+          $scope.heading = 'Detecting multiple Screens in different devices';
+          // detecting the operating system
+          var os = "Unknown OS";
+          if (navigator.userAgent.indexOf("Win") != -1) os =
+            "Windows OS";
+          if (navigator.userAgent.indexOf("Mac") != -1) os =
+            "Macintosh";
+          if (navigator.userAgent.indexOf("Linux") != -1) os =
+            "Linux OS";
+          if (navigator.userAgent.indexOf("Android") != -1) os =
+            "Android OS";
+          if (navigator.userAgent.indexOf("like Mac") != -1) os =
+            "iOS";
+          if (os == "Unknown OS") {
             os = navigator.userAgent;
-        }
-        $scope.os = os;
-        // detecting multiple screens
-          $scope.detectMultipleScreens = function () {
-              var totalScreens = [];
-              var list = [];
-              window.getScreenDetails()
-                  .then(function (details) {
-                      //    console.log(details);
-                      totalScreens = details;
-                      console.log(totalScreens);
-                      console.log("No. of Devices Connected: " + totalScreens.screens.length);
-                      $scope.devicecount = totalScreens.screens.length;
-                      for (i in totalScreens.screens) {
-                          let count = i;
-                          if (totalScreens.screens[i].label) {
-                              list.push(totalScreens.screens[i].label);
-                          } else {
-                              list.push('screen ' + ++count);
-                          }
-                      }
-                      $scope.list = list;
-                      console.log(list);
-                  })
           }
-      });
- 
-  </script>
+          $scope.os = os;
+          // detecting multiple screens
+       
+          //detecting the screen orientation
+          $scope.width = window.screen.width;
+          $scope.height = window.screen.height;
+          $scope.availWidth = window.screen.availWidth;
+          $scope.availHeight = window.screen.availHeight;
+
+          //detecting the screen using javascript
+          $scope.detectMultipleScreens = function () {
+            var totalScreens = [];
+            var list = [];
+            window.getScreenDetails()
+              .then(function (details) {
+                //    console.log(details);
+                totalScreens = details;
+                console.log(totalScreens);
+                console.log("No. of Devices Connected: " + totalScreens.screens.length);
+                $scope.devicecount = totalScreens.screens.length;
+                for (i in totalScreens.screens) {
+                  let count = i;
+                  if (totalScreens.screens[i].label) {
+                    list.push(totalScreens.screens[i].label);
+                  } else {
+                    list.push('screen ' + ++count);
+                  }
+                }
+                $scope.list = list;
+                console.log(list);
+              })
+          }
+          
+        })
+
+    </script>
 </body>
+
 </html>
