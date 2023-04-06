@@ -29,7 +29,7 @@
         <hr>
         <h3> <b>
             <p ng-model="details">Total screens connected : <span style="color: crimson;"> {{devicecount}} </span> </p>
-            <ul>Screen list :
+            <ul style="font-size: large;">Screen list :
               <li ng-repeat="x in list" style="color:crimson;font-size: large;">{{x}}</li>
             </ul>
           </b>
@@ -38,12 +38,29 @@
               {{details}}</span></b>
           <h3>
             <hr>
-            <ul style="font-size: large;">
-              <li>screenWidth: <span style="color: crimson;"> {{width}} </span></li>
-              <li>screenHeight: <span style="color: crimson;"> {{height}} </span></li>
-              <li>availableScreen Width: <span style="color: crimson;"> {{availWidth}} </span> </li>
-              <li>availableScreen Height: <span style="color: crimson;"> {{availHeight}} </span></li>
-            </ul>
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  Single Screen Orientation <br>
+                  <ul style="font-size: large;">
+                    <li>screenWidth: <span style="color: crimson;"> {{width}} </span></li>
+                    <li>screenHeight: <span style="color: crimson;"> {{height}} </span></li>
+                    <li>availableScreen Width: <span style="color: crimson;"> {{availWidth}} </span> </li>
+                    <li>availableScreen Height: <span style="color: crimson;"> {{availHeight}} </span></li>
+                  </ul>
+                </div>
+                <div class="col">
+                  Multiple Screen Orientation <br>
+                  <ul style="font-size: large;">
+                    <li>screenWidth: <span style="color: crimson;"> {{width2}} </span></li>
+                    <li>screenHeight: <span style="color: crimson;"> {{height2}} </span></li>
+                    <li>availableScreen Width: <span style="color: crimson;"> {{availWidth2}} </span> </li>
+                    <li>availableScreen Height: <span style="color: crimson;"> {{availHeight2}} </span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+         
             <button class="btn btn-sm btn-outline-dark" ng-click="detectMultipleScreens()">Double Click</button>
       </div>
     </div>
@@ -76,10 +93,20 @@
         // detecting multiple screens
 
         //detecting the screen orientation
+        if(!screen.isExtended){
         $scope.width = window.screen.width;
         $scope.height = window.screen.height;
         $scope.availWidth = window.screen.availWidth;
         $scope.availHeight = window.screen.availHeight;
+        }
+
+        // detetcting the screen orientation with the display attached
+        if(screen.isExtended){
+        $scope.width2 = window.screen.width;
+        $scope.height2 = window.screen.height;
+        $scope.availWidth2 = window.screen.availWidth;
+        $scope.availHeight2 = window.screen.availHeight;
+        }
 
         //detecting the screen using javascript
         $scope.detectMultipleScreens = function () {
