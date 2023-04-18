@@ -38,9 +38,9 @@
               {{details}}</span></b>
           <h3>
             <hr>
-            <div class="container">
-              <div class="row">
-                <div class="col">
+            <div class="container" >
+              <div class="row" >
+                <div class="col" ng-if="(devicecount == 1)">
                   Single Screen Orientation <br>
                   <ul style="font-size: large;">
                     <li>screenWidth: <span style="color: crimson;"> {{width}} </span></li>
@@ -49,7 +49,7 @@
                     <li>availableScreen Height: <span style="color: crimson;"> {{availHeight}} </span></li>
                   </ul>
                 </div>
-                <div class="col">
+                <div class="col" ng-if="(devicecount > 1)">
                   Multiple Screen Orientation <br>
                   <ul style="font-size: large;">
                     <li>screenWidth: <span style="color: crimson;"> {{width2}} </span></li>
